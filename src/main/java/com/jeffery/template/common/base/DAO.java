@@ -58,4 +58,5 @@ public abstract class DAO<P extends AbstractQueryParam, D extends AbstractModel>
 	public void delete(List<Long> idList) {
 		mapper.delete(idList);
 	}
+
 }

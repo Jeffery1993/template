@@ -6,11 +6,6 @@ package com.jeffery.template.common.base;
  */
 public enum ErrorType {
 
-	/** È¨ÏÞ´íÎó */
-	AUTHORITY_ERROR,
-	/** SQL´íÎó */
-	SQL_ERROR,
-	/** Î´Öª´íÎó */
-	UNKNOWN_ERROR;
+	AUTHORITY_ERROR, SQL_ERROR, UNKNOWN_ERROR;
 
 }

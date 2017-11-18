@@ -83,4 +83,5 @@ public interface Mapper<P extends AbstractQueryParam, D extends AbstractModel> {
 	 * @param idList
 	 */
 	void delete(List<Long> idList);
+
 }

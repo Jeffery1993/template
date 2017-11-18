@@ -41,4 +41,5 @@ public abstract class AbstractModel {
 	public String toString() {
 		return JSON.toJSONString(this);
 	}
+
 }
