@@ -2,10 +2,6 @@ package com.jeffery.template.common.base;
 
 import java.util.List;
 
-/**
- * @author JEFFERY YEW
- * @since 17 NOV 2017
- */
 public class PageList<T> {
 
 	private List<T> dataList;

@@ -3,10 +3,6 @@ package com.jeffery.template.common.base;
 import java.util.List;
 import java.util.Set;
 
-/**
- * @author JEFFERY YEW
- * @since 17 NOV 2017
- */
 public abstract class DAO<P extends AbstractQueryParam, D extends AbstractModel> {
 
 	private Mapper<P, D> mapper;
@@ -35,20 +31,20 @@ public abstract class DAO<P extends AbstractQueryParam, D extends AbstractModel>
 		return mapper.count(param);
 	}
 
-	public void update(D model) {
-		// TODO
-	}
-
-	public void update(D model, Set<String> changeSet) {
-		// TODO
-	}
-
 	public void create(D model) {
 		mapper.create(model);
 	}
 
 	public void create(List<D> modelList) {
 		mapper.create(modelList);
+	}
+
+	public void update(D model) {
+		// TODO
+	}
+
+	public void update(D model, Set<String> changeSet) {
+		// TODO
 	}
 
 	public void delete(Long id) {

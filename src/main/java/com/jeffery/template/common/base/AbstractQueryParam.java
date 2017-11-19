@@ -5,10 +5,6 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSON;
 
-/**
- * @author JEFFERY YEW
- * @since 17 NOV 2017
- */
 public abstract class AbstractQueryParam {
 
 	private Long id;

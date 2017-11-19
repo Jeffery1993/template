@@ -3,10 +3,6 @@ package com.jeffery.template.common.base;
 import java.util.List;
 import java.util.Set;
 
-/**
- * @author JEFFERY YEW
- * @since 17 NOV 2017
- */
 public interface Mapper<P extends AbstractQueryParam, D extends AbstractModel> {
 
 	/**
@@ -42,6 +38,20 @@ public interface Mapper<P extends AbstractQueryParam, D extends AbstractModel> {
 	Integer count(P param);
 
 	/**
+	 * Create a record according to the given model.
+	 * 
+	 * @param model
+	 */
+	void create(D model);
+
+	/**
+	 * Create records according to the given modelList.
+	 * 
+	 * @param modelList
+	 */
+	void create(List<D> modelList);
+
+	/**
 	 * Update the record with the given model.
 	 * 
 	 * @param model
@@ -55,20 +65,6 @@ public interface Mapper<P extends AbstractQueryParam, D extends AbstractModel> {
 	 * @param changeSet
 	 */
 	void update(D model, Set<String> changeSet);
-
-	/**
-	 * Create a record according to the given model.
-	 * 
-	 * @param model
-	 */
-	void create(D model);
-
-	/**
-	 * Create records according to the given modelList.
-	 * 
-	 * @param modelList
-	 */
-	void create(List<D> modelList);
 
 	/**
 	 * Delete the record by id.

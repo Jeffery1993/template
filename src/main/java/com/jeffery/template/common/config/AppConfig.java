@@ -4,10 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- * @author JEFFERY YEW
- * @since 17 NOV 2017
- */
 public class AppConfig {
 
 	private static Properties properties = new Properties();

@@ -1,0 +1,52 @@
+<mapper namespace="com.data.mapper.UserMapper" >
+	<resultMap id="resultMap" type="com.jeffery.template.data.model.UserModel" >
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+		<result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="columnList" >
+		id, gmt_create, gmt_modified, name, email
+	</sql>
+
+	<select id="getAll" resultMap="resultMap"  >
+		SELECT
+		<include refid="columnList" />
+		FROM user
+	</select>
+
+	<select id="find" parameterType="java.lang.Long" resultMap="resultMap" >
+		SELECT
+		<include refid="columnList" />
+		FROM user
+		WHERE id = #{id}
+	</select>
+
+	<insert id="create" parameterType="com.jeffery.template.data.model.UserModel" >
+		INSERT INTO
+			user
+			(gmt_create, gmt_modified, name, email)
+		VALUES
+			(#{gmtCreate}, #{gmtModified}, #{name}, #{email})
+	</insert>
+
+	<update id="update" parameterType="com.jeffery.template.data.model.UserModel" >
+		UPDATE
+			user
+		SET
+		<if test="userName != null"> name = #{name},</if>
+		<if test="passWord != null"> email = #{email},</if>
+		gmt_modified = now()
+		WHERE
+			id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="java.lang.Long" >
+		DELETE FROM
+			user
+		WHERE
+			id =#{id}
+	</delete>
+</mapper>

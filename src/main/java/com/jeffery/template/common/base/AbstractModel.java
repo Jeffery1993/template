@@ -4,10 +4,6 @@ import java.util.Date;
 
 import com.alibaba.fastjson.JSON;
 
-/**
- * @author JEFFERY YEW
- * @since 17 NOV 2017
- */
 public abstract class AbstractModel {
 
 	private Long id;
