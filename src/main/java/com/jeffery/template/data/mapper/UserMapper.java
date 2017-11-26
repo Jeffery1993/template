@@ -1,15 +1,9 @@
 package com.jeffery.template.data.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-
+import com.jeffery.template.common.base.Mapper;
 import com.jeffery.template.data.model.UserModel;
+import com.jeffery.template.data.param.UserParam;
 
-@Mapper
-public interface UserMapper {
-
-	@Select("select * from user where name = #{name}")
-	UserModel findUserByName(@Param("name") String name);
+public interface UserMapper extends Mapper<UserParam, UserModel> {
 
 }

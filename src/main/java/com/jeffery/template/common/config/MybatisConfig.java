@@ -1,44 +1,40 @@
 package com.jeffery.template.common.config;
 
+import java.util.Properties;
+
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.TransactionManagementConfigurer;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+
+import com.alibaba.druid.pool.DruidDataSourceFactory;
 
 @Configuration
-@EnableTransactionManagement
-public class MybatisConfig implements TransactionManagementConfigurer {
-	@Autowired
-	private DataSource dataSource;
+@MapperScan(basePackages = { "com.jeffery.template.data.mapper" })
+public class MybatisConfig {
 
-	@Override
-	public PlatformTransactionManager annotationDrivenTransactionManager() {
-		return new DataSourceTransactionManager(dataSource);
-	}
-
-	@Bean(name = "sqlSessionFactory")
-	public SqlSessionFactory sqlSessionFactoryBean() {
-		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-		bean.setDataSource(dataSource);
-
-		try {
-			return bean.getObject();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
+	@Bean
+	public DataSource getDataSource() throws Exception {
+		Properties properties = new Properties();
+		properties.put("driver", "com.mysql.jdbc.Driver");
+		properties.put("db.url", System.getProperty("db.url"));
+		properties.put("db.username", System.getProperty("db.username"));
+		properties.put("db.password", System.getProperty("db.password"));
+		properties.put("maxActive", "2335");
+		properties.put("filters", "stat");
+		return DruidDataSourceFactory.createDataSource(properties);
 	}
 
 	@Bean
-	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-		return new SqlSessionTemplate(sqlSessionFactory);
+	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+		bean.setDataSource(dataSource);
+		bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));
+		return bean.getObject();
 	}
+
 }

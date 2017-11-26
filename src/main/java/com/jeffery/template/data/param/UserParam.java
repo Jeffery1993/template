@@ -4,6 +4,7 @@ import com.jeffery.template.common.base.AbstractQueryParam;
 
 public class UserParam extends AbstractQueryParam {
 
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String email;
 

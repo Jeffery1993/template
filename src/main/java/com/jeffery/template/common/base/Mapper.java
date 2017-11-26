@@ -1,25 +1,31 @@
 package com.jeffery.template.common.base;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 public interface Mapper<P extends AbstractQueryParam, D extends AbstractModel> {
 
 	/**
-	 * Find the record by id.
+	 * Create a record according to the given model.
 	 * 
-	 * @param id
-	 * @return
+	 * @param model
 	 */
-	D find(Long id);
+	void create(D model);
 
 	/**
-	 * Find the records by idList.
+	 * Create records according to the given modelList.
 	 * 
-	 * @param idList
+	 * @param modelList
+	 */
+	void batchCreate(List<D> modelList);
+
+	/**
+	 * Update the record with the given model.
+	 * 
+	 * @param model
 	 * @return
 	 */
-	List<D> find(List<Long> idList);
+	Integer update(Map<String, Object> map);
 
 	/**
 	 * Query the records by the given @param.
@@ -38,46 +44,19 @@ public interface Mapper<P extends AbstractQueryParam, D extends AbstractModel> {
 	Integer count(P param);
 
 	/**
-	 * Create a record according to the given model.
+	 * Find the record by id.
 	 * 
-	 * @param model
+	 * @param id
+	 * @return
 	 */
-	void create(D model);
-
-	/**
-	 * Create records according to the given modelList.
-	 * 
-	 * @param modelList
-	 */
-	void create(List<D> modelList);
-
-	/**
-	 * Update the record with the given model.
-	 * 
-	 * @param model
-	 */
-	void update(D model);
-
-	/**
-	 * Update the record with the given model and changeSet.
-	 * 
-	 * @param model
-	 * @param changeSet
-	 */
-	void update(D model, Set<String> changeSet);
+	D find(Long id);
 
 	/**
 	 * Delete the record by id.
 	 * 
 	 * @param id
+	 * @return
 	 */
-	void delete(Long id);
-
-	/**
-	 * Delete the records by idList.
-	 * 
-	 * @param idList
-	 */
-	void delete(List<Long> idList);
+	int delete(Long id);
 
 }

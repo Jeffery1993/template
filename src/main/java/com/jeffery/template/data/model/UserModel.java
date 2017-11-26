@@ -4,6 +4,7 @@ import com.jeffery.template.common.base.AbstractModel;
 
 public class UserModel extends AbstractModel {
 
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String email;
 

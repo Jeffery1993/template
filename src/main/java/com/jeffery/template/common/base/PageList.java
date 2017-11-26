@@ -1,19 +1,22 @@
 package com.jeffery.template.common.base;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class PageList<T> {
+public class PageList<T> implements Serializable {
 
-	private List<T> dataList;
+	private static final long serialVersionUID = 1L;
+	private Integer totalCount = 0;
 	private AbstractQueryParam param;
-	private Integer totalCount;
+	private List<T> dataList = new ArrayList<T>();
 
-	public List<T> getDataList() {
-		return dataList;
+	public Integer getTotalCount() {
+		return totalCount;
 	}
 
-	public void setDataList(List<T> dataList) {
-		this.dataList = dataList;
+	public void setTotalCount(Integer totalCount) {
+		this.totalCount = totalCount;
 	}
 
 	public AbstractQueryParam getParam() {
@@ -24,12 +27,12 @@ public class PageList<T> {
 		this.param = param;
 	}
 
-	public Integer getTotalCount() {
-		return totalCount;
+	public List<T> getDataList() {
+		return dataList;
 	}
 
-	public void setTotalCount(Integer totalCount) {
-		this.totalCount = totalCount;
+	public void setDataList(List<T> dataList) {
+		this.dataList = dataList;
 	}
 
 }

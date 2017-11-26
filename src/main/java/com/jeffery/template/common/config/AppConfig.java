@@ -2,23 +2,41 @@ package com.jeffery.template.common.config;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+@Component
 public class AppConfig {
 
-	private static Properties properties = new Properties();
+	private static final Logger logger = LoggerFactory.getLogger(AppConfig.class);
 
 	public AppConfig() {
-		InputStream in = getClass().getResourceAsStream("/application.properties");
+		initProperties("/application.properties");
+	}
+
+	private static void initProperties(String path) {
+		InputStream in = null;
 		try {
-			properties.load(in);
+			in = AppConfig.class.getResourceAsStream(path);
+			System.getProperties().load(in);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+		} finally {
+			try {
+				if (in != null) {
+					in.close();
+				}
+			} catch (IOException e) {
+				logger.error(e.getMessage(), e);
+			}
+
 		}
 	}
 
-	public static String getProperty(String key) {
-		return (String) properties.get(key);
+	public static String getConfigValue(String key) {
+		return System.getProperty(key);
 	}
 
 }

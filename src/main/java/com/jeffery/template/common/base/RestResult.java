@@ -1,26 +1,29 @@
 package com.jeffery.template.common.base;
 
-public class RestResult<T> {
+import java.io.Serializable;
 
-	private boolean state = false;
-	private PageList<T> pageList = new PageList<T>();
+public class RestResult<T> implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	private Boolean state = false;
+	private T data;
 	private ErrorType errorType;
 	private String errorMessage;
 
-	public boolean isState() {
+	public Boolean getState() {
 		return state;
 	}
 
-	public void setState(boolean state) {
+	public void setState(Boolean state) {
 		this.state = state;
 	}
 
-	public PageList<T> getPageList() {
-		return pageList;
+	public T getData() {
+		return data;
 	}
 
-	public void setPageList(PageList<T> pageList) {
-		this.pageList = pageList;
+	public void setData(T data) {
+		this.data = data;
 	}
 
 	public ErrorType getErrorType() {
