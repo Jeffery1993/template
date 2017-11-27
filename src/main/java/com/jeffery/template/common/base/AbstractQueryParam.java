@@ -9,16 +9,20 @@ import com.alibaba.fastjson.JSON;
 public abstract class AbstractQueryParam implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Integer page = 1;
-	private Integer pageSize = 10;
-	private Boolean countNeeded = false;
-	private Long id;
-	private List<Long> idList;
-	private Date gmtCreate;
-	private Date gmtModified;
+	protected Integer page = 1;
+	protected Integer pageSize = 10;
+	protected Boolean countNeeded = false;
+	protected Long id;
+	protected List<Long> idList;
+	protected Date gmtCreate;
+	protected Date gmtModified;
 
 	public Integer getStartNum() {
-		return page * pageSize;
+		if (page == null || page.intValue() < 1) {
+			return Integer.valueOf(0);
+		} else {
+			return (page - 1) * pageSize;
+		}
 	}
 
 	public Integer getPage() {

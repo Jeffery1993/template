@@ -71,7 +71,7 @@
 	<insert id="batchCreate" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List" >
 		INSERT INTO user(gmt_create, gmt_modified, name, email)
 		VALUES
-		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+		<foreach collection="list" index="index" item="item" separator=",">
 			(now(), now(), #{item.name}, #{item.email})
 		</foreach>
 	</insert>
@@ -80,10 +80,10 @@
 		UPDATE user
 		SET gmt_modified = now()
 		<if test="userName != null">
-			, name = #{name}
+			, name = #{this.name}
 		</if>
 		<if test="passWord != null">
-			, email = #{email}
+			, email = #{this.email}
 		</if>
 		WHERE
 			id = #{this.id}

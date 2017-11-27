@@ -21,10 +21,10 @@ public class MybatisConfig {
 	public DataSource getDataSource() throws Exception {
 		Properties properties = new Properties();
 		properties.put("driver", "com.mysql.jdbc.Driver");
-		properties.put("db.url", System.getProperty("db.url"));
-		properties.put("db.username", System.getProperty("db.username"));
-		properties.put("db.password", System.getProperty("db.password"));
-		properties.put("maxActive", "2335");
+		properties.put("url", AppConfig.getConfigValue("db.url"));
+		properties.put("username", AppConfig.getConfigValue("db.username"));
+		properties.put("password", AppConfig.getConfigValue("db.password"));
+		properties.put("maxActive", "10");
 		properties.put("filters", "stat");
 		return DruidDataSourceFactory.createDataSource(properties);
 	}

@@ -15,7 +15,7 @@ public class UserDao extends DAO<UserParam, UserModel> {
 	@Autowired
 	private UserMapper mapper;
 
-	@Autowired
+	@Override
 	public Mapper<UserParam, UserModel> getMapper() {
 		return mapper;
 	}

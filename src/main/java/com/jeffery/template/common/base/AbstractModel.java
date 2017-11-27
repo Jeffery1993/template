@@ -2,9 +2,9 @@ package com.jeffery.template.common.base;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.alibaba.fastjson.JSON;
 
@@ -14,7 +14,24 @@ public abstract class AbstractModel implements Serializable {
 	private Long id;
 	private Date gmtCreate;
 	private Date gmtModified;
-	private List<String> changeSet;
+	private Set<String> changeSet;
+
+	public AbstractModel() {
+		changeSet = getAllFields();
+	}
+
+	private Set<String> getAllFields() {
+		Set<String> changeSet = new HashSet<String>();
+		Field[] fields = this.getClass().getDeclaredFields();
+		for (Field field : fields) {
+			changeSet.add(field.getName());
+		}
+		return changeSet;
+	}
+
+	public Set<String> getChangeSet() {
+		return changeSet;
+	}
 
 	public Long getId() {
 		return id;
@@ -38,19 +55,6 @@ public abstract class AbstractModel implements Serializable {
 
 	public void setGmtModified(Date gmtModified) {
 		this.gmtModified = gmtModified;
-	}
-
-	public List<String> getChangeSet() {
-		return changeSet;
-	}
-
-	public void setChangeSet() {
-		List<String> changeSet = new ArrayList<String>();
-		Field[] fields = this.getClass().getDeclaredFields();
-		for (Field field : fields) {
-			changeSet.add(field.getName());
-		}
-		this.changeSet = changeSet;
 	}
 
 	public String toString() {
