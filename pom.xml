@@ -5,7 +5,7 @@
 	<groupId>com.jeffery</groupId>
 	<artifactId>template</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -99,6 +99,23 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
 			<version>1.1.5</version>
+		</dependency>
+		
+		<!--aspectj configuration-->
+		<dependency>  
+			<groupId>org.aspectj</groupId>  
+			<artifactId>aspectjrt</artifactId>  
+			<version>1.8.9</version>  
+		</dependency>  
+		<dependency>  
+			<groupId>org.aspectj</groupId>  
+			<artifactId>aspectjtools</artifactId>  
+			<version>1.8.9</version>  
+		</dependency>  
+		<dependency>  
+			<groupId>org.aspectj</groupId>  
+			<artifactId>aspectjweaver</artifactId>  
+			<version>1.7.4</version>  
 		</dependency>
 	</dependencies>
 	
