@@ -1,7 +1,7 @@
 package com.jeffery.template.mvc.view;
 
 import com.jeffery.template.common.base.AbstractVO;
-import com.jeffery.template.data.model.UserModel;
+import com.jeffery.template.dal.model.UserModel;
 
 public class UserVO extends AbstractVO {
 

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jeffery.template.common.base.AbstractController;
-import com.jeffery.template.data.dao.UserDao;
-import com.jeffery.template.data.model.UserModel;
-import com.jeffery.template.data.param.UserParam;
+import com.jeffery.template.dal.dao.UserDao;
+import com.jeffery.template.dal.model.UserModel;
+import com.jeffery.template.dal.param.UserParam;
 
 @RestController
 @RequestMapping("/api/v1")

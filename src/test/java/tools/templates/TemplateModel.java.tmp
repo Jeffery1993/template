@@ -1,0 +1,12 @@
+package ${_dal_package_name}.model;
+
+import ${_base_package_name}.AbstractModel;
+
+public class ${_table_name}Model extends AbstractModel {
+
+	private static final long serialVersionUID = 1L;
+	
+	${_private_fields}
+
+	${_public_methods}
+}

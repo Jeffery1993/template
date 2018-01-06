@@ -1,0 +1,13 @@
+package ${_dal_package_name}.param;
+
+import ${_base_package_name}.AbstractQueryParam;
+
+public class ${_table_name}Param extends AbstractQueryParam {
+
+	private static final long serialVersionUID = 1L;
+	
+	${_private_fields}
+
+	${_public_methods}
+
+}

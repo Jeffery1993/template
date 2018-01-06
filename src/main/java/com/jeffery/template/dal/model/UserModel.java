@@ -1,4 +1,4 @@
-package com.jeffery.template.data.model;
+package com.jeffery.template.dal.model;
 
 import com.jeffery.template.common.base.AbstractModel;
 

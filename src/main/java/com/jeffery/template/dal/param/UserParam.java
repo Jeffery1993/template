@@ -1,4 +1,4 @@
-package com.jeffery.template.data.param;
+package com.jeffery.template.dal.param;
 
 import com.jeffery.template.common.base.AbstractQueryParam;
 

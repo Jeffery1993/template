@@ -1,0 +1,23 @@
+package ${_dal_package_name}.tools.templates;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ${_base_package_name}.DAO;
+import ${_base_package_name}.Mapper;
+import ${_dal_package_name}.mapper.${_table_name}Mapper;
+import ${_dal_package_name}.model.${_table_name}Model;
+import ${_dal_package_name}.param.${_table_name}Param;
+
+@Service
+public class ${_table_name}Dao extends DAO<${_table_name}Param, ${_table_name}Model> {
+
+	@Autowired
+	private ${_table_name}Mapper mapper;
+
+	@Override
+	public Mapper<${_table_name}Param, ${_table_name}Model> getMapper() {
+		return mapper;
+	}
+
+}
