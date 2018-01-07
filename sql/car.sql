@@ -11,8 +11,8 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- 导出  表 test.car 结构
-CREATE TABLE IF NOT EXISTS `car` (
+-- 导出  表 test.car_info 结构
+CREATE TABLE IF NOT EXISTS `car_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
@@ -23,9 +23,9 @@ CREATE TABLE IF NOT EXISTS `car` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
--- 正在导出表  test.car 的数据：~0 rows (大约)
-/*!40000 ALTER TABLE `car` DISABLE KEYS */;
-INSERT INTO `car` (`id`, `gmt_create`, `gmt_modified`, `car_category`, `car_type`, `lowest_price`, `highest_price`) VALUES
+-- 正在导出表  test.car_info 的数据：~49 rows (大约)
+/*!40000 ALTER TABLE `car_info` DISABLE KEYS */;
+INSERT INTO `car_info` (`id`, `gmt_create`, `gmt_modified`, `car_category`, `car_type`, `lowest_price`, `highest_price`) VALUES
 	(1, '2018-01-06 16:00:00', '2018-01-06 16:00:00', 'Audi', 'A3', 18.8, 25.8),
 	(2, '2018-01-06 16:00:00', '2018-01-06 16:00:00', 'Audi', 'A4L', 29.28, 41.4),
 	(3, '2018-01-06 16:00:00', '2018-01-06 16:00:00', 'Audi', 'A6L', 40.6, 74.6),
@@ -75,7 +75,7 @@ INSERT INTO `car` (`id`, `gmt_create`, `gmt_modified`, `car_category`, `car_type
 	(47, '2018-01-06 16:00:00', '2018-01-06 16:00:00', 'Volkswagen', '速腾', 13.18, 21.88),
 	(48, '2018-01-06 16:00:00', '2018-01-06 16:00:00', 'Volkswagen', '迈腾', 18.99, 31.69),
 	(49, '2018-01-06 16:00:00', '2018-01-06 16:00:00', 'Volkswagen', '大众CC', 25.28, 34.28);
-/*!40000 ALTER TABLE `car` ENABLE KEYS */;
+/*!40000 ALTER TABLE `car_info` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

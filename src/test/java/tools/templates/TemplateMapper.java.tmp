@@ -1,9 +1,0 @@
-package ${_dal_package_name}.tools.templates;
-
-import ${_base_package_name}.Mapper;
-import ${_dal_package_name}.model.${_table_name}Model;
-import ${_dal_package_name}.param.${_table_name}Param;
-
-public interface ${_table_name}Mapper extends Mapper<${_table_name}Param, ${_table_name}Model> {
-
-}

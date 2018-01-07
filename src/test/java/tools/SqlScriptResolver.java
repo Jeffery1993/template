@@ -1,10 +1,5 @@
 package tools;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSON;
+import com.jeffery.template.common.utils.FileUtils;
 
 public class SqlScriptResolver {
 
@@ -28,7 +24,7 @@ public class SqlScriptResolver {
 
 	public static List<Table> getResults(String fileName) {
 		logger.info("start to resolve file: " + fileName);
-		String sqlScript = getSqlScript(fileName);
+		String sqlScript = FileUtils.readFileAsString(fileName, false);
 		List<String> createTableScripts = getCreateTableScripts(sqlScript);
 		List<Table> list = new ArrayList<Table>();
 		for (String createTableScript : createTableScripts) {
@@ -44,32 +40,6 @@ public class SqlScriptResolver {
 		}
 		logger.info("file resolving completed");
 		return list;
-	}
-
-	protected static String getSqlScript(String fileName) {
-		StringBuffer buffer = new StringBuffer();
-		BufferedReader bufferedReader = null;
-		try {
-			FileInputStream fileInputStream = new FileInputStream(new File(fileName));
-			InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "UTF-8");
-			bufferedReader = new BufferedReader(inputStreamReader);
-			String line = null;
-			while ((line = bufferedReader.readLine()) != null) {
-				buffer.append(line);
-			}
-			bufferedReader.close();
-		} catch (IOException e) {
-			logger.error(e.getMessage(), e);
-			return EMPTY_STRING;
-		} finally {
-			if (bufferedReader != null) {
-				try {
-					bufferedReader.close();
-				} catch (IOException e) {
-				}
-			}
-		}
-		return buffer.toString();
 	}
 
 	protected static List<String> getCreateTableScripts(String sqlScript) {
@@ -128,14 +98,14 @@ public class SqlScriptResolver {
 	public static class Table {
 
 		private String tableName;
-		private Map<String, String> fields;
+		private Map<String, String> fieldsAndTypes;
 
 		public Table() {
 		}
 
-		public Table(String tableName, Map<String, String> fields) {
+		public Table(String tableName, Map<String, String> fieldsAndTypes) {
 			this.tableName = tableName;
-			this.fields = fields;
+			this.fieldsAndTypes = fieldsAndTypes;
 		}
 
 		public String getTableName() {
@@ -146,12 +116,12 @@ public class SqlScriptResolver {
 			this.tableName = tableName;
 		}
 
-		public Map<String, String> getFields() {
-			return fields;
+		public Map<String, String> getFieldsAndTypes() {
+			return fieldsAndTypes;
 		}
 
-		public void setFields(Map<String, String> fields) {
-			this.fields = fields;
+		public void setFieldsAndTypes(Map<String, String> fieldsAndTypes) {
+			this.fieldsAndTypes = fieldsAndTypes;
 		}
 
 		@Override

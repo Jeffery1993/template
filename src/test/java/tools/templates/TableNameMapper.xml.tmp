@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jeffery.template.data.mapper.UserMapper" >
-	<resultMap id="UserMap" type="com.jeffery.template.data.model.UserModel" >
+<mapper namespace="${dalPackageName}.mapper.${tableNickName}Mapper" >
+	<resultMap id="${tableNickName}Map" type="${dalPackageName}.model.${tableNickName}Model" >
 		<result column="id" property="id" />
 		<result column="gmt_create" property="gmtCreate" />
 		<result column="gmt_modified" property="gmtModified" />
-		<result column="name" property="name" />
-		<result column="email" property="email" />
+		${columnsAndProperties}
 	</resultMap>
 
 	<sql id="sql_select"  >
 		<![CDATA[
 			SELECT
-				id, gmt_create, gmt_modified, name, email
-			FROM user
+				id, gmt_create, gmt_modified, ${columns}
+			FROM ${tableRealName}
 		]]>
 	</sql>
 	
@@ -38,58 +37,52 @@
 		<if test="id != null"> AND id = #{id} </if>
 		<if test="gmtCreate != null"> AND gmt_create = #{gmtCreate} </if>
 		<if test="gmtModified != null"> AND gmt_modified = #{gmtModified} </if>
-		<if test="name != null"> AND name = #{name} </if>
-		<if test="email != null"> AND email = #{email} </if>
+		${sqlWhereStatements}
 	</sql>
 	
-	<select id="query" parameterType="com.jeffery.template.data.param.UserParam" resultMap="UserMap" >
+	<select id="query" parameterType="${dalPackageName}.param.${tableNickName}Param" resultMap="${tableNickName}Map" >
 		<include refid="sql_select" />
 		<include refid="sql_where" />
 		<include refid="sql_order" />
 		<include refid="sql_limit" />
 	</select>
 
-	<select id="find" parameterType="java.lang.Long" resultMap="UserMap" >
+	<select id="find" parameterType="java.lang.Long" resultMap="${tableNickName}Map" >
 		<include refid="sql_select" />
 		<![CDATA[
 			WHERE id = #{id}
 		]]>
 	</select>
 	
-	<select id="count" parameterType="com.jeffery.template.data.param.UserParam" resultType="java.lang.Integer" >
-		SELECT COUNT(*) FROM user
+	<select id="count" parameterType="${dalPackageName}.param.${tableNickName}Param" resultType="java.lang.Integer" >
+		SELECT COUNT(*) FROM ${tableRealName}
 		<include refid="sql_where" />
 	</select>
 	
-	<insert id="create" useGeneratedKeys="true" keyProperty="id" parameterType="com.jeffery.template.data.model.UserModel" >
+	<insert id="create" useGeneratedKeys="true" keyProperty="id" parameterType="${dalPackageName}.model.${tableNickName}Model" >
 		<![CDATA[
-			INSERT INTO user(gmt_create, gmt_modified, name, email)
-			VALUES(now(), now(), #{name}, #{email})
+			INSERT INTO ${tableRealName}(gmt_create, gmt_modified, ${columns})
+			VALUES(now(), now(), #{name}, #{email}, ${createStatements})
 		]]>
 	</insert>
 	
 	<insert id="batchCreate" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List" >
-		INSERT INTO user(gmt_create, gmt_modified, name, email)
+		INSERT INTO ${tableRealName}(gmt_create, gmt_modified, ${columns})
 		VALUES
 		<foreach collection="list" index="index" item="item" separator=",">
-			(now(), now(), #{item.name}, #{item.email})
+			(now(), now(), ${batchCreateStatements})
 		</foreach>
 	</insert>
 
 	<update id="update" parameterType="java.util.Map" >
-		UPDATE user
+		UPDATE ${tableRealName}
 		SET gmt_modified = now()
-		<if test="userName != null">
-			, name = #{this.name}
-		</if>
-		<if test="passWord != null">
-			, email = #{this.email}
-		</if>
+		${updateStatements}
 		WHERE
 			id = #{this.id}
 	</update>
 
 	<delete id="delete" parameterType="java.lang.Long" >
-		DELETE FROM user WHERE id =#{id}
+		DELETE FROM ${tableRealName} WHERE id =#{id}
 	</delete>
 </mapper>
