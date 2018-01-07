@@ -39,7 +39,7 @@ public class CarInfoService extends AbstractService {
 	public void updateRecords(List<CarInfoModel> carInfoModelList) throws SQLException {
 		try {
 			for (CarInfoModel carInfoModel : carInfoModelList) {
-				carInfoDao.update(carInfoModel);
+				carInfoDao.update(carInfoModel, carInfoModel.getChangeSet());
 			}
 		} catch (Exception e) {
 			throw new SQLException(e);

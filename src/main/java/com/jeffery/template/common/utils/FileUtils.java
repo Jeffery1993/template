@@ -14,13 +14,15 @@ public class FileUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
-	private static final String EMPTY_STRING = "";
-
 	public static String readFileAsString(String fileName) {
 		return readFileAsString(fileName, true);
 	}
 
 	public static String readFileAsString(String fileName, boolean lineSeparated) {
+		if (StringUtils.isEmpty(fileName)) {
+			logger.error("fileName is empty");
+			return StringUtils.EMPTY_STRING;
+		}
 		StringBuffer content = new StringBuffer();
 		try {
 			InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(fileName), "UTF-8");
@@ -35,12 +37,16 @@ public class FileUtils {
 			bufferedReader.close();
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
-			return EMPTY_STRING;
+			return StringUtils.EMPTY_STRING;
 		}
 		return content.toString();
 	}
 
 	public static boolean writeStringToFile(String fileName, String content) {
+		if (StringUtils.isEmpty(fileName)) {
+			logger.error("fileName is empty");
+			return false;
+		}
 		try {
 			FileWriter fileWriter = new FileWriter(fileName);
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
