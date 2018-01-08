@@ -15,7 +15,8 @@ import com.jeffery.template.common.base.ErrorType;
 import com.jeffery.template.common.base.PageList;
 import com.jeffery.template.common.base.RestResult;
 import com.jeffery.template.dal.model.CarInfoModel;
-import com.jeffery.template.dal.param.CarInfoParam;
+import com.jeffery.template.mvc.model.CarInfoVO;
+import com.jeffery.template.mvc.param.CarInfoQueryParam;
 import com.jeffery.template.mvc.service.CarInfoService;
 
 @RestController
@@ -25,7 +26,7 @@ public class CarInfoController extends AbstractController {
 	@Autowired
 	private CarInfoService carInfoService;
 
-	@RequestMapping(value = "/car-info", produces = "application/json; charset=utf-8", method = RequestMethod.PUT)
+	@RequestMapping(value = "/car-info/create", produces = "application/json; charset=utf-8", method = RequestMethod.PUT)
 	public RestResult<String> createRecords(@RequestBody List<CarInfoModel> carInfoModelList) {
 		RestResult<String> res = new RestResult<String>();
 		try {
@@ -45,11 +46,11 @@ public class CarInfoController extends AbstractController {
 		return res;
 	}
 
-	@RequestMapping(value = "/car-info", produces = "application/json; charset=utf-8", method = RequestMethod.GET)
-	public RestResult<PageList<CarInfoModel>> retrieveRecords(@RequestBody CarInfoParam carInfoParam) {
-		RestResult<PageList<CarInfoModel>> res = new RestResult<PageList<CarInfoModel>>();
+	@RequestMapping(value = "/car-info/retrieve", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
+	public RestResult<PageList<CarInfoVO>> retrieveRecords(@RequestBody CarInfoQueryParam carInfoQueryParam) {
+		RestResult<PageList<CarInfoVO>> res = new RestResult<PageList<CarInfoVO>>();
 		try {
-			PageList<CarInfoModel> pgList = carInfoService.retrieveRecords(carInfoParam);
+			PageList<CarInfoVO> pgList = carInfoService.retrieveRecords(carInfoQueryParam);
 			res.setData(pgList);
 			res.setState(true);
 		} catch (SQLException e) {
@@ -66,7 +67,7 @@ public class CarInfoController extends AbstractController {
 		return res;
 	}
 
-	@RequestMapping(value = "/car-info", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/car-info/update", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
 	public RestResult<String> updateRecords(@RequestBody List<CarInfoModel> carInfoModelList) {
 		RestResult<String> res = new RestResult<String>();
 		try {
@@ -86,7 +87,7 @@ public class CarInfoController extends AbstractController {
 		return res;
 	}
 
-	@RequestMapping(value = "/car-info", produces = "application/json; charset=utf-8", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/car-info/delete", produces = "application/json; charset=utf-8", method = RequestMethod.DELETE)
 	public RestResult<String> deleteRecords(@RequestParam(value = "idList", required = true) List<Long> idList) {
 		RestResult<String> res = new RestResult<String>();
 		try {

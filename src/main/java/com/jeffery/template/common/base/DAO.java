@@ -20,7 +20,7 @@ public abstract class DAO<P extends AbstractQueryParam, D extends AbstractModel>
 	public Integer update(D model) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("this", model);
-		for (String field : model.getChangeSet()) {
+		for (String field : model.changeSet()) {
 			map.put(field, field);
 		}
 		return getMapper().update(map);

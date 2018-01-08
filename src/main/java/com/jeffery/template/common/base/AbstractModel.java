@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSON;
 public abstract class AbstractModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	private Long id;
 	private Date gmtCreate;
 	private Date gmtModified;
@@ -24,12 +25,15 @@ public abstract class AbstractModel implements Serializable {
 		Set<String> changeSet = new HashSet<String>();
 		Field[] fields = this.getClass().getDeclaredFields();
 		for (Field field : fields) {
-			changeSet.add(field.getName());
+			String fieldName = field.getName();
+			if (!"id".equals(fieldName) && !"changeSet".equals(fieldName) && !"serialVersionUID".equals(fieldName)) {
+				changeSet.add(fieldName);
+			}
 		}
 		return changeSet;
 	}
 
-	public Set<String> getChangeSet() {
+	public Set<String> changeSet() {
 		return changeSet;
 	}
 

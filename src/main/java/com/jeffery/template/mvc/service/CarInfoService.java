@@ -11,6 +11,8 @@ import com.jeffery.template.common.base.PageList;
 import com.jeffery.template.dal.dao.CarInfoDao;
 import com.jeffery.template.dal.model.CarInfoModel;
 import com.jeffery.template.dal.param.CarInfoParam;
+import com.jeffery.template.mvc.model.CarInfoVO;
+import com.jeffery.template.mvc.param.CarInfoQueryParam;
 
 @Service
 public class CarInfoService extends AbstractService {
@@ -26,20 +28,28 @@ public class CarInfoService extends AbstractService {
 		}
 	}
 
-	public PageList<CarInfoModel> retrieveRecords(CarInfoParam carInfoParam) throws SQLException {
+	public PageList<CarInfoVO> retrieveRecords(CarInfoQueryParam carInfoQueryParam) throws SQLException {
 		PageList<CarInfoModel> pgList = null;
 		try {
-			pgList = carInfoDao.query(carInfoParam);
+			CarInfoParam param = carInfoQueryParam.toCarInfoParam();
+			pgList = carInfoDao.query(param);
 		} catch (Exception e) {
 			throw new SQLException(e);
 		}
-		return pgList;
+
+		PageList<CarInfoVO> voList = new PageList<CarInfoVO>();
+		List<CarInfoVO> dataList = voList.getDataList();
+		for (CarInfoModel m : pgList.getDataList()) {
+			dataList.add(new CarInfoVO(m));
+		}
+		voList.setTotalCount(dataList.size());
+		return voList;
 	}
 
 	public void updateRecords(List<CarInfoModel> carInfoModelList) throws SQLException {
 		try {
 			for (CarInfoModel carInfoModel : carInfoModelList) {
-				carInfoDao.update(carInfoModel, carInfoModel.getChangeSet());
+				carInfoDao.update(carInfoModel);
 			}
 		} catch (Exception e) {
 			throw new SQLException(e);

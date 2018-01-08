@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 public abstract class AbstractQueryParam implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	protected Integer page = 1;
 	protected Integer pageSize = 10;
 	protected Boolean countNeeded = false;
