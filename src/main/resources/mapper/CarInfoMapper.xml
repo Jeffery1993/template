@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jeffery.template.dal.mapper.CarInfoMapper" >
-	<resultMap id="CarInfoMap" type="com.jeffery.template.dal.model.CarInfoModel" >
+<mapper namespace="com.jeffery.template.common.dal.mapper.CarInfoMapper" >
+	<resultMap id="CarInfoMap" type="com.jeffery.template.common.dal.model.CarInfoModel" >
 		<result column="id" property="id" />
 		<result column="gmt_create" property="gmtCreate" />
 		<result column="gmt_modified" property="gmtModified" />
-		<result column="lowest_price" property="lowestPrice" />
-		<result column="highest_price" property="highestPrice" />
 		<result column="car_category" property="carCategory" />
 		<result column="car_type" property="carType" />
+		<result column="lowest_price" property="lowestPrice" />
+		<result column="highest_price" property="highestPrice" />
 	</resultMap>
 
 	<sql id="sql_select"  >
 		<![CDATA[
 			SELECT
-				id, gmt_create, gmt_modified, lowest_price, highest_price, car_category, car_type
+				id, gmt_create, gmt_modified, car_category, car_type, lowest_price, highest_price
 			FROM car_info
 		]]>
 	</sql>
@@ -40,13 +40,13 @@
 		<if test="id != null"> AND id = #{id} </if>
 		<if test="gmtCreate != null"> AND gmt_create = #{gmtCreate} </if>
 		<if test="gmtModified != null"> AND gmt_modified = #{gmtModified} </if>
-		<if test="lowestPrice != null"> AND lowest_price = #{lowestPrice} </if>
-		<if test="highestPrice != null"> AND highest_price = #{highestPrice} </if>
 		<if test="carCategory != null"> AND car_category = #{carCategory} </if>
 		<if test="carType != null"> AND car_type = #{carType} </if>
+		<if test="lowestPrice != null"> AND lowest_price = #{lowestPrice} </if>
+		<if test="highestPrice != null"> AND highest_price = #{highestPrice} </if>
 	</sql>
 	
-	<select id="query" parameterType="com.jeffery.template.dal.param.CarInfoParam" resultMap="CarInfoMap" >
+	<select id="query" parameterType="com.jeffery.template.common.dal.param.CarInfoParam" resultMap="CarInfoMap" >
 		<include refid="sql_select" />
 		<include refid="sql_where" />
 		<include refid="sql_order" />
@@ -60,40 +60,40 @@
 		]]>
 	</select>
 	
-	<select id="count" parameterType="com.jeffery.template.dal.param.CarInfoParam" resultType="java.lang.Integer" >
+	<select id="count" parameterType="com.jeffery.template.common.dal.param.CarInfoParam" resultType="java.lang.Integer" >
 		SELECT COUNT(*) FROM car_info
 		<include refid="sql_where" />
 	</select>
 	
-	<insert id="create" useGeneratedKeys="true" keyProperty="id" parameterType="com.jeffery.template.dal.model.CarInfoModel" >
+	<insert id="create" useGeneratedKeys="true" keyProperty="id" parameterType="com.jeffery.template.common.dal.model.CarInfoModel" >
 		<![CDATA[
-			INSERT INTO car_info(gmt_create, gmt_modified, lowest_price, highest_price, car_category, car_type)
-			VALUES(now(), now(), #{name}, #{email}, #{lowestPrice}, #{highestPrice}, #{carCategory}, #{carType})
+			INSERT INTO car_info(gmt_create, gmt_modified, car_category, car_type, lowest_price, highest_price)
+			VALUES(now(), now(), #{name}, #{email}, #{carCategory}, #{carType}, #{lowestPrice}, #{highestPrice})
 		]]>
 	</insert>
 	
 	<insert id="batchCreate" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List" >
-		INSERT INTO car_info(gmt_create, gmt_modified, lowest_price, highest_price, car_category, car_type)
+		INSERT INTO car_info(gmt_create, gmt_modified, car_category, car_type, lowest_price, highest_price)
 		VALUES
 		<foreach collection="list" index="index" item="item" separator=",">
-			(now(), now(), #{item.lowestPrice}, #{item.highestPrice}, #{item.carCategory}, #{item.carType})
+			(now(), now(), #{item.carCategory}, #{item.carType}, #{item.lowestPrice}, #{item.highestPrice})
 		</foreach>
 	</insert>
 
 	<update id="update" parameterType="java.util.Map" >
 		UPDATE car_info
 		SET gmt_modified = now()
-		<if test="lowestPrice != null">
-			, lowest_price = #{this.lowestPrice}
-		</if>
-		<if test="highestPrice != null">
-			, highest_price = #{this.highestPrice}
-		</if>
 		<if test="carCategory != null">
 			, car_category = #{this.carCategory}
 		</if>
 		<if test="carType != null">
 			, car_type = #{this.carType}
+		</if>
+		<if test="lowestPrice != null">
+			, lowest_price = #{this.lowestPrice}
+		</if>
+		<if test="highestPrice != null">
+			, highest_price = #{this.highestPrice}
 		</if>
 		WHERE
 			id = #{this.id}

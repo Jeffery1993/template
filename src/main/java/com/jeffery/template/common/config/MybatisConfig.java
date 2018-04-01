@@ -14,7 +14,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 
 @Configuration
-@MapperScan(basePackages = { "com.jeffery.template.dal.mapper" })
+@MapperScan(basePackages = { "com.jeffery.template.common.dal.mapper" })
 public class MybatisConfig {
 
 	@Bean

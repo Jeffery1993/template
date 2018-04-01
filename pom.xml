@@ -117,6 +117,14 @@
 			<artifactId>aspectjweaver</artifactId>  
 			<version>1.7.4</version>  
 		</dependency>
+		
+		<!--fastapi configuration-->
+		<dependency>
+			<groupId>com.jeffery</groupId>
+			<artifactId>fastapi</artifactId>
+			<version>2.1</version>
+		</dependency>
+		
 	</dependencies>
 	
 	<build>
