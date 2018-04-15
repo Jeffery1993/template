@@ -3,8 +3,8 @@ package com.jeffery.template.common.dal.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jeffery.fastapi.base.DAO;
-import com.jeffery.fastapi.base.Mapper;
+import com.jeffery.template.common.base.DAO;
+import com.jeffery.template.common.base.Mapper;
 import com.jeffery.template.common.dal.mapper.CarInfoMapper;
 import com.jeffery.template.common.dal.model.CarInfoModel;
 import com.jeffery.template.common.dal.param.CarInfoParam;

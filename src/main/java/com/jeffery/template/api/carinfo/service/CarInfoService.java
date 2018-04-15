@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jeffery.fastapi.base.AbstractService;
-import com.jeffery.fastapi.base.PageList;
-import com.jeffery.fastapi.base.exception.ServiceException;
 import com.jeffery.template.api.carinfo.model.CarInfoVO;
+import com.jeffery.template.api.carinfo.param.CarInfoCreateParam;
+import com.jeffery.template.api.carinfo.param.CarInfoUpdateParam;
+import com.jeffery.template.common.base.AbstractService;
+import com.jeffery.template.common.base.PageList;
+import com.jeffery.template.common.base.exception.ServiceException;
 import com.jeffery.template.common.dal.dao.CarInfoDao;
 import com.jeffery.template.common.dal.model.CarInfoModel;
 import com.jeffery.template.common.dal.param.CarInfoParam;
@@ -19,14 +21,12 @@ public class CarInfoService extends AbstractService {
 	@Autowired
 	private CarInfoDao carInfoDao;
 
-	public void createCarInfo(List<CarInfoModel> carInfoModelList) throws ServiceException {
-		carInfoDao.create(carInfoModelList);
+	public void createCarInfo(CarInfoCreateParam carInfoCreateParam) throws ServiceException {
+		carInfoDao.create(carInfoCreateParam.toCarInfoModel());
 	}
 
-	public void updateCarInfo(List<CarInfoModel> carInfoModelList) throws ServiceException {
-		for (CarInfoModel carInfoModel : carInfoModelList) {
-			carInfoDao.update(carInfoModel);
-		}
+	public void updateCarInfo(CarInfoUpdateParam carInfoUpdateParam) throws ServiceException {
+		carInfoDao.update(carInfoUpdateParam.toCarInfoModel());
 	}
 
 	public PageList<CarInfoVO> queryCarInfo(Integer page, Integer pageSize, List<Long> idList) throws ServiceException {

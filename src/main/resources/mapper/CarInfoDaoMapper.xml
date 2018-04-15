@@ -9,12 +9,13 @@
 		<result column="car_type" property="carType" />
 		<result column="lowest_price" property="lowestPrice" />
 		<result column="highest_price" property="highestPrice" />
+		<result column="marks" property="marks" />
 	</resultMap>
 
 	<sql id="sql_select"  >
 		<![CDATA[
 			SELECT
-				id, gmt_create, gmt_modified, car_category, car_type, lowest_price, highest_price
+				id, gmt_create, gmt_modified, car_category, car_type, lowest_price, highest_price, marks
 			FROM car_info
 		]]>
 	</sql>
@@ -44,6 +45,7 @@
 		<if test="carType != null"> AND car_type = #{carType} </if>
 		<if test="lowestPrice != null"> AND lowest_price = #{lowestPrice} </if>
 		<if test="highestPrice != null"> AND highest_price = #{highestPrice} </if>
+		<if test="marks != null"> AND marks = #{marks} </if>
 	</sql>
 	
 	<select id="query" parameterType="com.jeffery.template.common.dal.param.CarInfoParam" resultMap="CarInfoMap" >
@@ -67,16 +69,16 @@
 	
 	<insert id="create" useGeneratedKeys="true" keyProperty="id" parameterType="com.jeffery.template.common.dal.model.CarInfoModel" >
 		<![CDATA[
-			INSERT INTO car_info(gmt_create, gmt_modified, car_category, car_type, lowest_price, highest_price)
-			VALUES(now(), now(), #{name}, #{email}, #{carCategory}, #{carType}, #{lowestPrice}, #{highestPrice})
+			INSERT INTO car_info(gmt_create, gmt_modified, car_category, car_type, lowest_price, highest_price, marks)
+			VALUES(now(), now(), #{carCategory}, #{carType}, #{lowestPrice}, #{highestPrice}, #{marks})
 		]]>
 	</insert>
 	
 	<insert id="batchCreate" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List" >
-		INSERT INTO car_info(gmt_create, gmt_modified, car_category, car_type, lowest_price, highest_price)
+		INSERT INTO car_info(gmt_create, gmt_modified, car_category, car_type, lowest_price, highest_price, marks)
 		VALUES
 		<foreach collection="list" index="index" item="item" separator=",">
-			(now(), now(), #{item.carCategory}, #{item.carType}, #{item.lowestPrice}, #{item.highestPrice})
+			(now(), now(), #{item.carCategory}, #{item.carType}, #{item.lowestPrice}, #{item.highestPrice}, #{item.marks})
 		</foreach>
 	</insert>
 
@@ -94,6 +96,9 @@
 		</if>
 		<if test="highestPrice != null">
 			, highest_price = #{this.highestPrice}
+		</if>
+		<if test="marks != null">
+			, marks = #{this.marks}
 		</if>
 		WHERE
 			id = #{this.id}

@@ -1,15 +1,21 @@
 package com.jeffery.template.common.dal.model;
 
-import com.jeffery.fastapi.base.AbstractModel;
+import com.jeffery.template.common.base.AbstractModel;
+
+import io.swagger.annotations.ApiModelProperty;
 
 public class CarInfoModel extends AbstractModel {
 
 	private static final long serialVersionUID = 1L;
 	
+	@ApiModelProperty(value = "车辆品牌")
 	private String carCategory;
+	@ApiModelProperty(value = "车辆型号")
 	private String carType;
+	@ApiModelProperty(value = "最低价格")
 	private Double lowestPrice;
-	private Double highestPrice;
+	@ApiModelProperty(value = "最高价格")
+	private Double highestPrice;	private String marks;
 	
 	public String getCarCategory() {
 		return carCategory;
@@ -41,6 +47,14 @@ public class CarInfoModel extends AbstractModel {
 
 	public void setHighestPrice(Double highestPrice) {
 		this.highestPrice = highestPrice;
+	}
+	
+	public String getMarks() {
+		return marks;
+	}
+
+	public void setMarks(String marks) {
+		this.marks = marks;
 	}
 	
 }
